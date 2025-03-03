@@ -49,10 +49,64 @@ def create_custom_theme():
     '''
     # TODO : Generate template described above
 
+    # Define the custom theme layout template
+    template = {
+        'layout': {
+            'font': {
+                'family': THEME['font_family'],
+                'color': THEME['dark_color']
+            },
+            'paper_bgcolor': THEME['background_color'],
+            'plot_bgcolor': THEME['background_color'],
+            'xaxis': {
+                'tickangle': -45  # Incliner les ticks de l'axe des x
+            },
+            'yaxis': {
+                'tickangle': 0
+            },
+            'hoverlabel': {
+                'bgcolor': THEME['label_background_color'],
+                'font': {
+                    'family': THEME['accent_font_family'],
+                    'size': THEME['label_font_size'],
+                    'color': THEME['dark_color']
+                }
+            },
+            'coloraxis': {
+                'colorscale': THEME['colorscale']
+            },
+            'line': {
+                'color': THEME['line_chart_color']
+            },
+            'title': {
+                'font': {
+                    'family': THEME['accent_font_family'],
+                    'color': THEME['dark_color'],
+                    'size': 18
+                }
+            },
+        },
+        'data': {
+            'heatmap': [
+                go.Heatmap(
+                    colorscale=THEME['colorscale']
+                )
+            ]
+        }
+    }
 
+    # Ajouter le template aux templates de Plotly (pio)
+    pio.templates['custom_template'] = template
+    
+    
+    
 def set_default_theme():
     '''
         Sets the default theme to be a combination of the
         'plotly_white' theme and our custom theme.
     '''
     # TODO : Set default theme
+    pio.templates.default = ['plotly_white', 'custom_template']
+    
+    
+    
